@@ -1,10 +1,29 @@
-// Header.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { assets } from '@/assets/assets';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const Header = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Generate stable random positions for floating elements
+  const floatingElements = Array.from({ length: 5 }, (_, i) => ({
+    id: i,
+    top: `${20 + i * 15}%`,
+    left: `${10 + i * 15}%`,
+    width: `${10 + i * 2}px`,
+    height: `${10 + i * 2}px`,
+    color: i % 3 === 0 ? 'from-blue-400 to-cyan-400' : 
+           i % 3 === 1 ? 'from-purple-400 to-pink-400' : 'from-yellow-400 to-orange-400'
+  }));
+
+  if (!isMounted) return null;
+
   return (
     <div className='w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4 relative overflow-hidden'>
       {/* Animated background elements */}
@@ -31,7 +50,9 @@ const Header = () => {
       >
         <Image 
           src={assets.profile_img} 
-          alt='' 
+          alt='Profile' 
+          width={128}
+          height={128}
           className='rounded-full w-32 border-4 border-white/20 shadow-lg'
         />
         <motion.div 
@@ -63,7 +84,7 @@ const Header = () => {
             repeatDelay: 3
           }}
         >
-          <Image src={assets.hand_icon} alt='' className='w-6'/>  
+          <Image src={assets.hand_icon} alt='Wave' width={24} height={24} className='w-6'/>  
         </motion.div>
       </motion.h3>
 
@@ -103,40 +124,36 @@ const Header = () => {
               repeat: Infinity
             }}
           >
-            <Image src={assets.right_arrow_white} alt='' className='w-4' />
+            <Image src={assets.right_arrow_white} alt='Arrow' width={16} height={16} className='w-4' />
           </motion.div>
         </motion.a>
         
         <motion.a            
-  initial={{ y: 30, opacity: 0 }}           
-  animate={{ y: 0, opacity: 1 }}           
-  transition={{ duration: 0.6, delay: 1.2 }}           
-  href="/sample-resume.pdf"            
-  download            
-  className='px-10 py-3 rounded-full bg-white dark:bg-white-800 border border-gray-200 dark:border-white-700 flex items-center gap-2 shadow hover:shadow-md transition-all duration-300 hover:scale-105 text-black dark:text-black'         
->           
-  My resume           
-  <motion.div             
-    animate={{ y: [0, -3, 0] }}             
-    transition={{                
-      duration: 1,               
-      repeat: Infinity             
-    }}           
-  >             
-    <Image src={assets.download_icon} alt='' className='w-4' />           
-  </motion.div>         
-</motion.a>
+          initial={{ y: 30, opacity: 0 }}           
+          animate={{ y: 0, opacity: 1 }}           
+          transition={{ duration: 0.6, delay: 1.2 }}           
+          href="/sample-resume.pdf"            
+          download            
+          className='px-10 py-3 rounded-full bg-white dark:bg-white-800 border border-gray-200 dark:border-white-700 flex items-center gap-2 shadow hover:shadow-md transition-all duration-300 hover:scale-105 text-black dark:text-black'         
+        >           
+          My resume           
+          <motion.div             
+            animate={{ y: [0, -3, 0] }}             
+            transition={{                
+              duration: 1,               
+              repeat: Infinity             
+            }}           
+          >             
+            <Image src={assets.download_icon} alt='Download' width={16} height={16} className='w-4' />           
+          </motion.div>         
+        </motion.a>
       </div>
 
-      {/* Floating animated elements */}
-      {[...Array(5)].map((_, i) => (
+      {/* Floating animated elements with stable positions */}
+      {floatingElements.map((element) => (
         <motion.div
-          key={i}
-          initial={{ 
-            opacity: 0,
-            y: Math.random() * 100 - 50,
-            x: Math.random() * 100 - 50
-          }}
+          key={element.id}
+          initial={{ opacity: 0 }}
           animate={{ 
             opacity: [0.3, 0.6, 0.3],
             y: [0, Math.random() * 40 - 20],
@@ -146,17 +163,14 @@ const Header = () => {
             duration: Math.random() * 5 + 5,
             repeat: Infinity,
             repeatType: 'reverse',
-            delay: i * 0.5
+            delay: element.id * 0.5
           }}
-          className={`absolute -z-10 w-4 h-4 rounded-full bg-gradient-to-r ${
-            i % 3 === 0 ? 'from-blue-400 to-cyan-400' : 
-            i % 3 === 1 ? 'from-purple-400 to-pink-400' : 'from-yellow-400 to-orange-400'
-          } blur-sm`}
+          className={`absolute -z-10 rounded-full bg-gradient-to-r ${element.color} blur-sm`}
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`
+            top: element.top,
+            left: element.left,
+            width: element.width,
+            height: element.height
           }}
         />
       ))}

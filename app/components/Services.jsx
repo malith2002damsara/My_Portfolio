@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { assets, serviceData } from '@/assets/assets'
 import { motion } from 'framer-motion'
 
 const Services = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Generate stable floating elements
+  const floatingElements = Array.from({ length: 5 }, (_, i) => ({
+    id: i,
+    top: `${10 + i * 15}%`,
+    left: `${10 + i * 15}%`,
+    size: `${10 + i * 2}px`,
+    color: i % 3 === 0 ? 'from-blue-400 to-cyan-400' : 
+           i % 3 === 1 ? 'from-purple-400 to-pink-400' : 'from-yellow-400 to-orange-400'
+  }));
+
+  if (!isMounted) return null;
+
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
@@ -31,20 +49,11 @@ const Services = () => {
         <div className="w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-3xl opacity-20"></div>
       </motion.div>
 
-      <motion.h4 
-        initial={{ y: -20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className='text-center mb-2 text-lg font-Ovo text-gradient bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent'
-      >
-        {/* What I offer */}
-      </motion.h4>
-      
       <motion.h2 
         initial={{ y: -20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
-        className='text-center text-5xl font-Ovo font-bold'
+        className='text-center text-5xl font-Ovo font-bold mt-3'
       >
         My <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">Services</span>
       </motion.h2>
@@ -62,7 +71,7 @@ const Services = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.9 }}
-        className="grid grid-cols-auto gap-8 my-10"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-10"
       >
         {serviceData.map(({icon, title, description, link}, index) => (
           <motion.div 
@@ -76,12 +85,17 @@ const Services = () => {
             }}
             className="border border-gray-200 dark:border-gray-700 rounded-lg px-8 py-12 hover:shadow-lg cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white/20 relative overflow-hidden"
           >
-            {/* Service icon with animation */}
             <motion.div
               whileHover={{ rotate: 10 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              <Image src={icon} alt='' className='w-10'/>
+              <Image 
+                src={icon} 
+                alt={title}
+                width={40}
+                height={40}
+                className='w-10'
+              />
             </motion.div>
             
             <h3 className='text-lg my-4 text-gray-700 dark:text-white font-semibold'>{title}</h3>
@@ -102,26 +116,31 @@ const Services = () => {
                   repeat: Infinity
                 }}
               >
-                <Image alt='' src={assets.right_arrow} className='w-4'/>
+                <Image 
+                  src={assets.right_arrow} 
+                  alt="Arrow"
+                  width={16}
+                  height={16}
+                  className='w-4'
+                />
               </motion.span>
             </motion.a>
             
-            {/* Decorative element */}
             <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-blue-500/10 dark:bg-blue-400/10 blur-lg"></div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Floating animated elements */}
-      {[...Array(5)].map((_, i) => (
+      {/* Floating animated elements with stable positions */}
+      {floatingElements.map((element) => (
         <motion.div
-          key={i}
+          key={element.id}
           initial={{ 
             opacity: 0,
             y: Math.random() * 100 - 50,
             x: Math.random() * 100 - 50
           }}
-          animate={{ 
+          whileInView={{ 
             opacity: [0.3, 0.6, 0.3],
             y: [0, Math.random() * 40 - 20],
             x: [0, Math.random() * 40 - 20]
@@ -130,17 +149,14 @@ const Services = () => {
             duration: Math.random() * 5 + 5,
             repeat: Infinity,
             repeatType: 'reverse',
-            delay: i * 0.5
+            delay: element.id * 0.5
           }}
-          className={`absolute -z-10 w-4 h-4 rounded-full bg-gradient-to-r ${
-            i % 3 === 0 ? 'from-blue-400 to-cyan-400' : 
-            i % 3 === 1 ? 'from-purple-400 to-pink-400' : 'from-yellow-400 to-orange-400'
-          } blur-sm`}
+          className={`absolute -z-10 rounded-full bg-gradient-to-r ${element.color} blur-sm`}
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`
+            top: element.top,
+            left: element.left,
+            width: element.size,
+            height: element.size
           }}
         />
       ))}

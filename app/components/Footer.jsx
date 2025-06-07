@@ -1,10 +1,27 @@
-// Footer.js
 import { assets } from '@/assets/assets';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Footer = ({isDarkMode}) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Generate stable floating elements
+  const floatingElements = Array.from({ length: 5 }, (_, i) => ({
+    id: i,
+    top: `${10 + i * 15}%`,
+    left: `${10 + i * 15}%`,
+    size: `${10 + i * 2}px`,
+    color: i % 3 === 0 ? 'bg-blue-400' : 
+           i % 3 === 1 ? 'bg-purple-400' : 'bg-pink-400'
+  }));
+
+  if (!isMounted) return null;
+
   return (
     <div className='mt-20 relative overflow-hidden'>
       {/* Background elements */}
@@ -23,14 +40,22 @@ const Footer = ({isDarkMode}) => {
       >
         <Image 
           src={isDarkMode ? assets.logo_dark : assets.logo} 
-          alt='' 
+          alt='Logo'
+          width={144}
+          height={144}
           className='w-36 mx-auto mb-2 hover:scale-105 transition-transform duration-300'
         />
         <motion.div 
           whileHover={{ scale: 1.05 }}
           className="w-max flex items-center gap-2 mx-auto p-3 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-sm"
         >
-          <Image src={isDarkMode ? assets.mail_icon_dark : assets.mail_icon} alt='' className='w-6'/>
+          <Image 
+            src={isDarkMode ? assets.mail_icon_dark : assets.mail_icon} 
+            alt='Email'
+            width={24}
+            height={24}
+            className='w-6'
+          />
           <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent font-medium">
             malithdamsara87@gmail.com
           </span>
@@ -48,7 +73,7 @@ const Footer = ({isDarkMode}) => {
         <motion.ul className="flex items-center gap-6 justify-center mt-4 sm:mt-0">
           {['GitHub', 'LinkedIn', 'Instagram'].map((item, index) => (
             <motion.li 
-              key={index}
+              key={item}
               whileHover={{ 
                 y: -5,
                 scale: 1.1,
@@ -64,10 +89,10 @@ const Footer = ({isDarkMode}) => {
         </motion.ul>
       </motion.div>
 
-      {/* Floating animated elements */}
-      {[...Array(5)].map((_, i) => (
+      {/* Floating animated elements with stable positions */}
+      {floatingElements.map((element) => (
         <motion.div
-          key={i}
+          key={element.id}
           initial={{ 
             opacity: 0,
             y: Math.random() * 100 - 50,
@@ -82,17 +107,14 @@ const Footer = ({isDarkMode}) => {
             duration: Math.random() * 5 + 5,
             repeat: Infinity,
             repeatType: 'reverse',
-            delay: i * 0.3
+            delay: element.id * 0.3
           }}
-          className={`absolute -z-10 w-4 h-4 rounded-full ${
-            i % 3 === 0 ? 'bg-blue-400' : 
-            i % 3 === 1 ? 'bg-purple-400' : 'bg-pink-400'
-          } blur-sm`}
+          className={`absolute -z-10 rounded-full ${element.color} blur-sm`}
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`
+            top: element.top,
+            left: element.left,
+            width: element.size,
+            height: element.size
           }}
         />
       ))}

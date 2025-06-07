@@ -1,10 +1,17 @@
-// About.js
 import { assets, infoList, toolsData } from '@/assets/assets';
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const About = ({isDarkMode}) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -27,19 +34,11 @@ const About = ({isDarkMode}) => {
         className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-3xl -z-10"
       />
 
-      <motion.h4 
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className='text-center mb-2 text-lg font-Ovo text-gradient bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent'
-      >
-        {/* Introduction */}
-      </motion.h4>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
-        className='text-center text-5xl font-Ovo font-bold'
+        className='text-center text-5xl font-Ovo font-bold mt-3'
       >
         About <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">Me</span>
       </motion.h2>
@@ -59,9 +58,10 @@ const About = ({isDarkMode}) => {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-3xl -z-10" />
           <Image 
-            // src={assets.user_image} 
             src={assets.profile_img}  
-            alt='user' 
+            alt='Profile'
+            width={320}
+            height={320}
             className='w-full rounded-3xl hover:scale-105 transition-transform duration-500'
           />
           <motion.div
@@ -113,7 +113,13 @@ const About = ({isDarkMode}) => {
                   whileHover={{ rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  <Image src={isDarkMode ? iconDark : icon} alt={title} className='w-7 mt-3'/>
+                  <Image 
+                    src={isDarkMode ? iconDark : icon} 
+                    alt={title} 
+                    width={28}
+                    height={28}
+                    className='w-7 mt-3'
+                  />
                 </motion.div>
                 <h3 className='my-4 font-semibold text-gray-700 dark:text-white'>{title}</h3>
                 <p className="text-gray-600 text-sm dark:text-white/80">{description}</p>
@@ -158,7 +164,13 @@ const About = ({isDarkMode}) => {
                   whileHover={{ rotate: 15 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 >
-                  <Image src={tool} alt='Tool' className='w-5 sm:w-7'/>
+                  <Image 
+                    src={tool} 
+                    alt='Tool' 
+                    width={28}
+                    height={28}
+                    className='w-5 sm:w-7'
+                  />
                 </motion.div>
               </motion.li>
             ))}

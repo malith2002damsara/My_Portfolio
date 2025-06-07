@@ -1,18 +1,22 @@
-// Contact.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { assets } from '@/assets/assets';
 import { motion } from 'framer-motion';
 
 const Contact = ({ isDarkMode }) => {
   const [result, setResult] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Sending....");
     const formData = new FormData(event.target);
 
-     formData.append("access_key", "6228d079-7210-4318-bdc2-0cdd7085cc21");
+    formData.append("access_key", "6228d079-7210-4318-bdc2-0cdd7085cc21");
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -30,6 +34,15 @@ const Contact = ({ isDarkMode }) => {
     }
   };
 
+  if (!isMounted) return null;
+
+  // Generate stable floating elements positions
+  const floatingElements = [
+    { id: 0, top: '20%', left: '10%', color: 'bg-blue-400/20' },
+    { id: 1, top: '60%', left: '80%', color: 'bg-purple-400/20' },
+    { id: 2, top: '40%', left: '50%', color: 'bg-pink-400/20' }
+  ];
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -46,20 +59,11 @@ const Contact = ({ isDarkMode }) => {
         className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-tl-[50%] rounded-br-[50%] blur-3xl"
       />
 
-      <motion.h4 
-        initial={{ y: -20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className='text-center mb-2 text-lg font-Ovo text-gradient bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent'
-      >
-        {/* Contact With Me */}
-      </motion.h4>
-      
       <motion.h2 
         initial={{ y: -20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.5 }}
-        className='text-center text-5xl font-Ovo font-bold'
+        className='text-center text-5xl font-Ovo font-bold mt-3'
       >
         Get In <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">Touch</span>
       </motion.h2>
@@ -140,7 +144,13 @@ const Contact = ({ isDarkMode }) => {
               ease: "linear"
             }}
           >
-            <Image src={assets.right_arrow_white} alt='' className='w-4'/>
+            <Image 
+              src={assets.right_arrow_white} 
+              alt='Submit arrow'
+              width={16}
+              height={16}
+              className='w-4'
+            />
           </motion.div>
         </motion.button>
         
@@ -153,10 +163,10 @@ const Contact = ({ isDarkMode }) => {
         </motion.p>
       </motion.form>
 
-      {/* Floating elements */}
-      {[...Array(3)].map((_, i) => (
+      {/* Floating elements with stable positions */}
+      {floatingElements.map((element) => (
         <motion.div
-          key={i}
+          key={element.id}
           initial={{ 
             opacity: 0,
             scale: 0.5,
@@ -169,15 +179,12 @@ const Contact = ({ isDarkMode }) => {
           }}
           transition={{
             duration: 1,
-            delay: i * 0.3
+            delay: element.id * 0.3
           }}
-          className={`absolute -z-10 w-32 h-32 rounded-full ${
-            i % 3 === 0 ? 'bg-blue-400/20' : 
-            i % 3 === 1 ? 'bg-purple-400/20' : 'bg-pink-400/20'
-          } blur-xl`}
+          className={`absolute -z-10 w-32 h-32 rounded-full ${element.color} blur-xl`}
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`
+            top: element.top,
+            left: element.left
           }}
         />
       ))}

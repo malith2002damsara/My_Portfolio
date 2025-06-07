@@ -81,33 +81,76 @@ export const workData = [
         title: 'Frontend project',
         description: 'Web Design',
         bgImage: '/work-1.png',
+        slug: 'frontend-project',
+        tech: ['React', 'Next.js', 'Tailwind'],
+        date: 'Jan 2023',
+        details: {
+            overview: 'A modern frontend project built with React and Next.js, featuring responsive design and interactive UI components.',
+            challenges: 'Implementing smooth animations while maintaining performance.',
+            solution: 'Used Framer Motion for animations and optimized images for fast loading.',
+            features: ['Responsive design', 'Dark mode', 'Interactive elements'],
+            liveUrl: 'https://frontend-project.example.com',
+            githubUrl: 'https://github.com/example/frontend-project'
+        }
     },
     {
         title: 'Geo based app',
         description: 'Mobile App',
         bgImage: '/work-2.png',
+        slug: 'geo-app',
+        tech: ['React Native', 'Firebase', 'Mapbox'],
+        date: 'Mar 2023',
+        details: {
+            overview: 'A location-based mobile application that helps users discover nearby points of interest.',
+            challenges: 'Handling real-time location updates and optimizing battery usage.',
+            solution: 'Implemented geofencing and optimized location polling intervals.',
+            features: ['Real-time location', 'Custom markers', 'Offline support'],
+            liveUrl: 'https://geo-app.example.com',
+            githubUrl: 'https://github.com/example/geo-app'
+        }
     },
     {
-        title: 'Photography site',
+        title: 'E-Commerce site',
         description: 'Web Design',
         bgImage: '/work-3.png',
+        slug: 'ecommerce-site',
+        tech: ['Next.js', 'Stripe', 'MongoDB'],
+        date: 'Jun 2023',
+        details: {
+            overview: 'A full-featured e-commerce platform with product listings, cart functionality, and secure checkout.',
+            challenges: 'Implementing a seamless checkout flow with multiple payment options.',
+            solution: 'Integrated Stripe for payments and optimized the checkout process.',
+            features: ['Product catalog', 'Shopping cart', 'User accounts'],
+            liveUrl: 'https://ecommerce.example.com',
+            githubUrl: 'https://github.com/example/ecommerce'
+        }
     },
     {
         title: 'UI/UX designing',
         description: 'UI/UX Design',
         bgImage: '/work-4.png',
+        slug: 'ui-ux-design',
+        tech: ['Figma', 'Adobe XD', 'Illustrator'],
+        date: 'Sep 2023',
+        details: {
+            overview: 'A collection of UI/UX design projects including wireframes, prototypes, and design systems.',
+            challenges: 'Creating consistent design language across multiple platforms.',
+            solution: 'Developed a comprehensive design system with reusable components.',
+            features: ['Wireframes', 'Interactive prototypes', 'Design system'],
+            liveUrl: 'https://design.example.com',
+            githubUrl: 'https://github.com/example/ui-ux'
+        }
     },
-]
+];
 
 export const serviceData = [
     { icon: assets.web_icon, title: 'Web design', description: 'Web development is the process of building, programming...', link: '' },
     { icon: assets.mobile_icon, title: 'Mobile app', description: 'Mobile app development involves creating software for mobile devices...', link: '' },
     { icon: assets.ui_icon, title: 'UI/UX design', description: 'UI/UX design focuses on creating a seamless user experience...', link: '' },
-    { icon: assets.graphics_icon, title: 'Graphics design', description: 'Creative design solutions to enhance visual communication...', link: '' },
 ]
 
 export const infoList = [
-    { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Languages', description: 'HTML, CSS, JavaScript React Js, Next Js' },
+    { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Languages', description: 'HTML, CSS, JavaScript React Js, Next Js , Scala ,C ' },
     { icon: assets.edu_icon, iconDark: assets.edu_icon_dark, title: 'Education', description: 'B.Tech in Computer Science' },
     { icon: assets.project_icon, iconDark: assets.project_icon_dark, title: 'Projects', description: 'Built more than 5 projects' }
 ];
