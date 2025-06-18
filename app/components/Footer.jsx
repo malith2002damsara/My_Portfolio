@@ -63,31 +63,42 @@ const Footer = ({isDarkMode}) => {
       </motion.div>
 
       <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] py-10 mt-10"
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8, delay: 0.3 }}
+  className="text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] py-10 mt-10"
+>
+  <p className="text-gray-600 dark:text-gray-300">© 2025 Malith Damsara. All rights reserved</p>
+  
+  <motion.ul className="flex items-center gap-6 justify-center mt-4 sm:mt-0">
+    {['GitHub', 'LinkedIn', 'Instagram'].map((item, index) => (
+      <motion.li 
+        key={item}
+        whileHover={{ 
+          y: -5,
+          scale: 1.1,
+          color: index === 0 ? '#6e5494' : 
+                 index === 1 ? '#0a66c2' : '#e1306c'
+        }}
+        transition={{ duration: 0.3 }}
+        className="text-gray-600 dark:text-gray-300 hover:text-current cursor-pointer"
       >
-        <p className="text-gray-600 dark:text-gray-300">© 2025 Malith Damsara. All rights reserved</p>
-        
-        <motion.ul className="flex items-center gap-6 justify-center mt-4 sm:mt-0">
-          {['GitHub', 'LinkedIn', 'Instagram'].map((item, index) => (
-            <motion.li 
-              key={item}
-              whileHover={{ 
-                y: -5,
-                scale: 1.1,
-                color: index === 0 ? '#6e5494' : 
-                       index === 1 ? '#0a66c2' : '#e1306c'
-              }}
-              transition={{ duration: 0.3 }}
-              className="text-gray-600 dark:text-gray-300 hover:text-current cursor-pointer"
-            >
-              <a href={`https://${item.toLowerCase()}.com/malithdamsara`}>{item}</a>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.div>
+        <a 
+          href={
+            index === 0 ? 'https://github.com/malith2002damsara' :
+            index === 1 ? 'https://www.linkedin.com/in/malith-damsara-98686a336' :
+            'https://www.instagram.com/_damsara_wild_life_photography'
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={item}
+        >
+          {item}
+        </a>
+      </motion.li>
+    ))}
+  </motion.ul>
+</motion.div>
 
       {/* Floating animated elements with stable positions */}
       {floatingElements.map((element) => (
