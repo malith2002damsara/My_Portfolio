@@ -96,7 +96,7 @@ const Header = () => {
       >
         <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
           FullStack
-        </span> web developer based in Sri Lanka.
+        </span> developer & CS undergraduate.
       </motion.h1>
 
       <motion.p 
@@ -105,7 +105,7 @@ const Header = () => {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="max-w-2xl mx-auto font-Ovo text-gray-600 dark:text-gray-300"
       >
-        I'm a frontend developer from Colombo, SL with 2 years experience in multiple companies like Google, WSO2, Creative Software.
+        Computer Science undergraduate at University of Colombo with a passion for building impactful software solutions across web, mobile, and machine learning projects.
       </motion.p>
 
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">

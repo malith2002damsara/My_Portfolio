@@ -64,7 +64,7 @@ const Services = () => {
         transition={{ duration: 0.7, delay: 0.5 }}
         className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-gray-600 dark:text-gray-300"
       >
-        I am frontend developer from Colombo, SL with 3 years of experience in multiple companies like Google, WSO2, IFS.
+        Computer Science undergraduate specializing in full-stack development, mobile applications, and machine learning solutions with experience in modern technologies.
       </motion.p>
 
       <motion.div 
