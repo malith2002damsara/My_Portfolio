@@ -46,7 +46,7 @@ const Header = () => {
           duration: 0.8
         }}
         whileHover={{ scale: 1.05 }}
-        className="relative"
+        className="relative mt-20" // <-- Added margin-top here
       >
         <Image 
           src={assets.profile_img} 
@@ -84,7 +84,7 @@ const Header = () => {
             repeatDelay: 3
           }}
         >
-          <Image src={assets.hand_icon} alt='Wave' width={24} height={24} className='w-6'/>  
+          {/* <Image src={assets.hand_icon} alt='Wave' width={24} height={24} className='w-6'/>   */}
         </motion.div>
       </motion.h3>
 
@@ -96,7 +96,10 @@ const Header = () => {
       >
         <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
           FullStack
-        </span> developer & CS undergraduate.
+        </span> developer ,
+        <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+          Data Science
+        </span> & CS undergraduate.
       </motion.h1>
 
       <motion.p 
@@ -105,7 +108,7 @@ const Header = () => {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="max-w-2xl mx-auto font-Ovo text-gray-600 dark:text-gray-300"
       >
-        Computer Science undergraduate at University of Colombo with a passion for building impactful software solutions across web, mobile, and machine learning projects.
+      Computer Science undergraduate at the University of Colombo with a passion for building impactful software solutions across web, mobile, data science, and machine learning projects.
       </motion.p>
 
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
@@ -132,7 +135,7 @@ const Header = () => {
           initial={{ y: 30, opacity: 0 }}           
           animate={{ y: 0, opacity: 1 }}           
           transition={{ duration: 0.6, delay: 1.2 }}           
-          href="/sample-resume.pdf"            
+          href="/Malith-Damsara.pdf"            
           download            
           className='px-10 py-3 rounded-full bg-white dark:bg-white-800 border border-gray-200 dark:border-white-700 flex items-center gap-2 shadow hover:shadow-md transition-all duration-300 hover:scale-105 text-black dark:text-black'         
         >           

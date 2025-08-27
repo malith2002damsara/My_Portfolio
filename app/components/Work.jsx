@@ -80,7 +80,7 @@ const Work = ({ isDarkMode }) => {
         }}
         className='text-center text-5xl font-Ovo font-bold mt-3'
       >
-        My <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">Works</span>
+        My <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">Work</span>
       </motion.h2>
 
       <motion.p 
@@ -96,7 +96,7 @@ const Work = ({ isDarkMode }) => {
         }}
         className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-gray-600 dark:text-gray-300"
       >
-        Welcome to my web development portfolio. Explore a collection of projects showcasing my expertise in front-end development.
+       Welcome to my web development portfolio. Explore a collection of projects showcasing my expertise in full-stack development, mobile applications, UI/UX design, and machine learning models.
       </motion.p>
 
       <motion.div 

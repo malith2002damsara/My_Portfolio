@@ -1,38 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { assets } from '@/assets/assets';
 import { motion } from 'framer-motion';
 
 const Contact = ({ isDarkMode }) => {
-  const [result, setResult] = useState("");
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
-
-    formData.append("access_key", "6228d079-7210-4318-bdc2-0cdd7085cc21");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
-    }
-  };
 
   if (!isMounted) return null;
 
@@ -77,91 +51,39 @@ const Contact = ({ isDarkMode }) => {
         Feel free to reach out to me for any questions or opportunities. I'll get back to you as soon as possible!
       </motion.p>
 
-      <motion.form 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.5 }}
-        onSubmit={onSubmit} 
-        className='max-w-2xl mx-auto bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg'
+        className='max-w-xl mx-auto bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 backdrop-blur-sm p-10 rounded-3xl shadow-2xl border border-blue-100 dark:border-gray-700'
       >
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 1.3, duration: 0.6 }}
+        <div className="flex flex-col gap-8 items-center">
+          <a
+            href="mailto:malithdamsara76@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center py-4 px-6 rounded-xl bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold text-lg shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200"
           >
-            <input 
-              type="text" 
-              placeholder="Enter your name" 
-              required 
-              className='w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-lg bg-white/80 dark:bg-darkHover/30 dark:border-white/90 transition-all focus:ring-2 focus:ring-purple-500 focus:border-transparent'
-              name='name'
-            />
-          </motion.div>
-          
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 1.3, duration: 0.6 }}
+            Email
+          </a>
+          <a
+            href="https://wa.me/+94776270882"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center py-4 px-6 rounded-xl bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-semibold text-lg shadow hover:bg-green-200 dark:hover:bg-green-800 transition-all duration-200"
           >
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              required 
-              className='w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-lg bg-white/80 dark:bg-darkHover/30 dark:border-white/90 transition-all focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-              name='email' 
-            />
-          </motion.div>
+            WhatsApp
+          </a>
+          <a
+            href="https://www.linkedin.com/in/malith-damsara-98686a336"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center py-4 px-6 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-800 dark:text-blue-200 font-semibold text-lg shadow hover:bg-blue-100 dark:hover:bg-blue-900 transition-all duration-200"
+          >
+            LinkedIn
+          </a>
         </div>
-        
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.6 }}
-        >
-          <textarea 
-            rows='6' 
-            placeholder='Enter your message' 
-            required 
-            className='w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-lg bg-white/80 dark:bg-darkHover/30 dark:border-white/90 mb-6 transition-all focus:ring-2 focus:ring-teal-500 focus:border-transparent'
-            name='message'
-          ></textarea>
-        </motion.div>
-        
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-          type='submit' 
-          className='py-4 px-10 w-full md:w-max flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full mx-auto shadow-lg hover:shadow-xl transition-all'
-        >
-          Submit Now
-          <motion.div
-            animate={{ rotate: [0, 360] }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
-            <Image 
-              src={assets.right_arrow_white} 
-              alt='Submit arrow'
-              width={16}
-              height={16}
-              className='w-4'
-            />
-          </motion.div>
-        </motion.button>
-        
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: result ? 1 : 0 }}
-          className="mt-4 text-center text-sm text-gray-600 dark:text-gray-300"
-        >
-          {result}
-        </motion.p>
-      </motion.form>
+      </motion.div>
 
       {/* Floating elements with stable positions */}
       {floatingElements.map((element) => (

@@ -73,7 +73,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     { id: 'services', label: 'Services', href: '#services' },
     { id: 'work', label: 'My Work', href: '#work' },
     // { id: 'achievements', label: 'Achievements', href: '#achievements' },
-    { id: 'contact', label: 'Contact me', href: '#contact' },
+    // { id: 'contact', label: 'Contact me', href: '#contact' },
   ];
 
   const handleThemeToggle = () => {

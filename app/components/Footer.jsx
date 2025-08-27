@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Footer = ({isDarkMode}) => {
+const Footer = ({ isDarkMode }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -16,8 +16,12 @@ const Footer = ({isDarkMode}) => {
     top: `${10 + i * 15}%`,
     left: `${10 + i * 15}%`,
     size: `${10 + i * 2}px`,
-    color: i % 3 === 0 ? 'bg-blue-400' : 
-           i % 3 === 1 ? 'bg-purple-400' : 'bg-pink-400'
+    color:
+      i % 3 === 0
+        ? 'bg-blue-400'
+        : i % 3 === 1
+        ? 'bg-purple-400'
+        : 'bg-pink-400',
   }));
 
   if (!isMounted) return null;
@@ -29,103 +33,106 @@ const Footer = ({isDarkMode}) => {
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.1 }}
         transition={{ duration: 1.5 }}
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-tl-[50%] rounded-br-[50%] blur-3xl"
+        className='absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-tl-[50%] rounded-br-[50%] blur-3xl'
       />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center"
-      >
-        <Image 
-          src={isDarkMode ? assets.logo_dark : assets.logo} 
-          alt='Logo'
-          width={144}
-          height={144}
-          className='w-36 mx-auto mb-2 hover:scale-105 transition-transform duration-300'
-        />
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="w-max flex items-center gap-2 mx-auto p-3 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-sm"
-        >
-          <Image 
-            src={isDarkMode ? assets.mail_icon_dark : assets.mail_icon} 
-            alt='Email'
-            width={24}
-            height={24}
-            className='w-6'
-          />
-          <span className="text-gradient bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent font-medium">
-            malithdamsara87@gmail.com
-          </span>
-        </motion.div>
-      </motion.div>
+        className='text-center'
+      ></motion.div>
 
-      <motion.div 
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  transition={{ duration: 0.8, delay: 0.3 }}
-  className="text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] py-10 mt-10"
->
-  <p className="text-gray-600 dark:text-gray-300">© 2025 Malith Damsara. All rights reserved</p>
-  
-  <motion.ul className="flex items-center gap-6 justify-center mt-4 sm:mt-0">
-    {['GitHub', 'LinkedIn', 'Instagram'].map((item, index) => (
-      <motion.li 
-        key={item}
-        whileHover={{ 
-          y: -5,
-          scale: 1.1,
-          color: index === 0 ? '#6e5494' : 
-                 index === 1 ? '#0a66c2' : '#e1306c'
-        }}
-        transition={{ duration: 0.3 }}
-        className="text-gray-600 dark:text-gray-300 hover:text-current cursor-pointer"
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className='text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] py-10 mt-10'
       >
-        <a 
-          href={
-            index === 0 ? 'https://github.com/malith2002damsara' :
-            index === 1 ? 'https://www.linkedin.com/in/malith-damsara-98686a336' :
-            'https://www.instagram.com/_damsara_wild_life_photography'
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={item}
-        >
-          {item}
-        </a>
-      </motion.li>
-    ))}
-  </motion.ul>
-</motion.div>
+        <p className='text-gray-600 dark:text-gray-300'>
+          © 2025 Malith Damsara. All rights reserved
+        </p>
+
+        <motion.ul className='flex items-center gap-6 justify-center mt-4 sm:mt-0'>
+          {[{
+            name: 'GitHub',
+            url: 'https://github.com/malith2002damsara',
+          },
+          {
+            name: 'LinkedIn',
+            url: 'https://www.linkedin.com/in/malith-damsara-98686a336',
+          },
+          {
+            name: 'Instagram',
+            url: 'https://www.instagram.com/_damsara_wild_life_photography',
+          },
+          { name: 'Email', 
+            url: 'mailto:malithdamsara76@gmail.com' },
+            
+          { name: 'WhatsApp',
+             url: 'https://wa.me/+94776270882' },
+             
+          ].map((item, index) => (
+            <motion.li
+              key={item.name}
+              whileHover={{
+                y: -5,
+                scale: 1.1,
+                color:
+                  item.name === 'GitHub'
+                    ? '#6e5494'
+                    : item.name === 'LinkedIn'
+                    ? '#0a66c2'
+                    : item.name === 'Instagram'
+                    ? '#e1306c'
+                    : item.name === 'Email'
+                    ? '#ea4335'
+                    : item.name === 'WhatsApp'
+                    ? '#25d366'
+                    : undefined,
+              }}
+              transition={{ duration: 0.3 }}
+              className='text-gray-600 dark:text-gray-300 hover:text-current cursor-pointer'
+            >
+              <a
+                href={item.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label={item.name}
+              >
+                {item.name}
+              </a>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
 
       {/* Floating animated elements with stable positions */}
       {floatingElements.map((element) => (
         <motion.div
           key={element.id}
-          initial={{ 
+          initial={{
             opacity: 0,
             y: Math.random() * 100 - 50,
-            x: Math.random() * 100 - 50
+            x: Math.random() * 100 - 50,
           }}
-          whileInView={{ 
+          whileInView={{
             opacity: 0.4,
             y: [0, Math.random() * 40 - 20],
-            x: [0, Math.random() * 40 - 20]
+            x: [0, Math.random() * 40 - 20],
           }}
           transition={{
             duration: Math.random() * 5 + 5,
             repeat: Infinity,
             repeatType: 'reverse',
-            delay: element.id * 0.3
+            delay: element.id * 0.3,
           }}
           className={`absolute -z-10 rounded-full ${element.color} blur-sm`}
           style={{
             top: element.top,
             left: element.left,
             width: element.size,
-            height: element.size
+            height: element.size,
           }}
         />
       ))}
